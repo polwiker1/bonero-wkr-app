@@ -1,13 +1,17 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from datetime import datetime
 from utils import (
     calcular_rendimiento_simple,
     calcular_tir,
     es_cupon_cero_estrategico
 )
 
+# ---------- Configuración de página ----------
 st.set_page_config(page_title="Bonero WKR – Simulador Educativo", layout="wide")
+
+# ---------- Sidebar ----------
 with st.sidebar:
     st.image("logo_wkr.png", width=180)
     st.markdown("<h3 style='color:#0b84ff;'>Bonero WKR</h3>", unsafe_allow_html=True)
@@ -24,10 +28,11 @@ with st.sidebar:
             📘 <strong>Facebook:</strong> <a href='https://www.facebook.com/wikerblockchainpablo' target='_blank'>Wiker Blockchain Pablo</a>
         </div>
     """, unsafe_allow_html=True)
-# Cargar dataset base
+
+# ---------- Datos base ----------
 df = pd.read_csv("bonos.csv")
 
-# Estructura de pestañas
+# ---------- Pestañas ----------
 tab1, tab2, tab3 = st.tabs(["📊 Simulador", "📡 Visualizador", "🎓 Aula Copilot"])
 
 # ---------- TAB 1: Simulador ----------
@@ -66,27 +71,32 @@ with tab1:
         mostrar_info(bono_1)
     with col4:
         mostrar_info(bono_2)
-st.markdown("---")
-st.markdown("""
-<div style='background-color:#f5f7fa; padding:15px; border-left:5px solid #0b84ff; border-radius:10px; font-size:14px;'>
-    ⚠️ <strong>Disclaimer educativo:</strong><br>
-    Esta herramienta tiene fines exclusivamente pedagógicos. No constituye recomendación financiera, asesoramiento profesional ni sugerencia de inversión específica.<br><br>
-    <strong>Autor:</strong> Pablo wkr<br>
-    <strong>Rol:</strong> Asesor Productor Financiero 2.0 registrado<br>
-    <strong>Formación:</strong> Curso especializado en Bonos Argentinos – Academia IOL<br>
-</div>
-""", unsafe_allow_html=True)
-# ---------- TAB 2: Visualizador BYMA con TIR real ----------
-from datetime import datetime
 
+    st.markdown("---")
+
+    # ✅ Disclaimer educativo en tab1
+    with st.expander("⚠️ Disclaimer educativo"):
+        st.markdown(
+            '''
+            <div style='background-color:#0f1117; padding:15px; border-left:5px solid #f9c94d; border-radius:10px; font-size:14px; color:#ffffff;'>
+                <strong>Esta herramienta tiene fines exclusivamente pedagógicos.</strong><br>
+                No constituye recomendación financiera, asesoramiento profesional ni sugerencia de inversión específica.<br><br>
+                <strong>Autor:</strong> Pablo Wiker<br>
+                <strong>Rol:</strong> Asesor Productor Financiero 2.0 registrado<br>
+                <strong>Formación:</strong> Curso especializado en Bonos Argentinos – Academia IOL
+            </div>
+            ''',
+            unsafe_allow_html=True
+        )
+
+# ---------- TAB 2: Visualizador ----------
 with tab2:
     st.header("🔄 Visualizador BYMA – Carga de CSV con TIR real")
-
     uploaded = st.file_uploader("📁 Subí tu archivo CSV exportado de BYMA", type="csv")
+
     if uploaded:
         df_byma = pd.read_csv(uploaded)
         hoy = datetime.today()
-
         df_byma["Años"] = df_byma["Fecha_vencimiento"].apply(
             lambda x: (pd.to_datetime(x) - hoy).days / 365
         )
@@ -126,16 +136,7 @@ with tab2:
             st.plotly_chart(fig, use_container_width=True)
     else:
         st.info("📎 Subí un archivo .csv exportado desde BYMA para comenzar.")
-st.markdown("---")
-st.markdown("""
-<div style='background-color:#f5f7fa; padding:15px; border-left:5px solid #0b84ff; border-radius:10px; font-size:14px;'>
-    ⚠️ <strong>Disclaimer educativo:</strong><br>
-    Esta herramienta tiene fines exclusivamente pedagógicos. No constituye recomendación financiera, asesoramiento profesional ni sugerencia de inversión específica.<br><br>
-    <strong>Autor:</strong> Pablo wkr<br>
-    <strong>Rol:</strong> Asesor Productor Financiero 2.0 registrado<br>
-    <strong>Formación:</strong> Curso especializado en Bonos Argentinos – Academia IOL<br>
-</div>
-""", unsafe_allow_html=True)
+
 # ---------- TAB 3: Aula Copilot ----------
 with tab3:
     st.title("🎓 Aula Copilot Interactiva")
@@ -166,7 +167,7 @@ with tab3:
     st.markdown("- [📚 Glosario del BCRA](https://www.bcra.gob.ar/BCRAyVos/Glosario.asp)")
     st.markdown("- [📝 Cursos gratuitos de Educación Financiera (EfEd)](https://efinanciera.educ.ar)")
     st.markdown("- [📊 Finanzas Públicas (Ministerio de Economía)](https://www.argentina.gob.ar/economia/finanzas)")
-    st.markdown("- [📦 GitHub - Bonos y renta fija](https://github.com/topics/bonds)")
+    st.markdown("- [📦 GitHub – Bonos y renta fija](https://github.com/topics/bonds)")
 
     st.markdown("---")
 
