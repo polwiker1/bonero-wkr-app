@@ -22,7 +22,7 @@ with st.sidebar:
     st.markdown("""
         <div style='font-size:14px; line-height:1.6;'>
             📞 <strong>WhatsApp:</strong> <a href='https://wa.me/543544561784' target='_blank'>+54 3544 561784</a><br>
-            🔗 <strong>LinkedIn:</strong> <a href='https://www.linkedin.com/in/pabloamodio/' target='_blank'>Pablo Amodio</a><br>
+            🔗 <strong>LinkedIn:</strong> <a href='https://www.linkedin.com/in/pablo-amodio-309654331/' target='_blank'>Pablo Amodio</a><br>
             📸 <strong>Instagram:</strong> <a href='https://www.instagram.com/wikerblockchain/' target='_blank'>@wikerblockchain</a><br>
             💻 <strong>GitHub:</strong> <a href='https://github.com/polwiker1' target='_blank'>polwiker1</a><br>
             📘 <strong>Facebook:</strong> <a href='https://www.facebook.com/wikerblockchainpablo' target='_blank'>Wiker Blockchain Pablo</a>
